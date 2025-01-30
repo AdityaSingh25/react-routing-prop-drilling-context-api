@@ -5,7 +5,7 @@ import {
   useSetRecoilState,
 } from "recoil";
 
-import { countAtom } from "./store/atoms/count";
+import { countAtom, evenSelector } from "./store/atoms/count";
 
 export default function App() {
   return (
@@ -24,6 +24,7 @@ function Count() {
     <div>
       <CounterRender />
       <Buttons />
+      <IsEven />
     </div>
   );
 }
@@ -53,14 +54,14 @@ function Buttons() {
     <div>
       <button
         onClick={() => {
-          setCount(count=> count - 1);
+          setCount((count) => count - 1);
         }}
       >
         Decrease
       </button>
       <button
         onClick={() => {
-          setCount(count=> count + 1);
+          setCount((count) => count + 1);
         }}
       >
         Increase
@@ -69,6 +70,19 @@ function Buttons() {
   );
 }
 
+function IsEven() {
+  // one way of doing this
+
+  // const count = useRecoilValue(countAtom);
+  // const isEven = useMemo(()=>{
+  //   return count%2==0;
+  // },[count])
+  // return <div>{isEven ? <div>is even</div> : <div>is odd</div>}</div>;
+
+  const isEven = useRecoilValue(evenSelector);
+
+  return <div>{isEven ? "this is even" : "this is odd"}</div>;
+}
 
 // ⭐🌟🌟🌟
 // How does it work internally?
